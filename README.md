@@ -1,209 +1,132 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Platform-AIoT-blue?style=for-the-badge" alt="Platform"/>
-  <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
-  <img src="https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/NestJS-Backend-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS"/>
-  <img src="https://img.shields.io/badge/License-Private-red?style=for-the-badge" alt="License"/>
-</p>
+# Apadbandhav Backend API
 
-<h1 align="center">Apadbandhav</h1>
+NestJS-based backend for the Apadbandhav AIoT Accident Detection and Emergency Response Platform.
 
-<p align="center">
-  <strong>AIoT-Powered Accident Detection & Emergency Response Platform</strong>
-</p>
+## Features
 
-<p align="center">
-  <em>Saving lives through intelligent real-time accident detection and automated emergency response</em>
-</p>
-
----
-
-## Overview
-
-**Apadbandhav** is an innovative AIoT (Artificial Intelligence of Things) platform designed to detect accidents in real-time and automatically trigger emergency response protocols. The system combines smart IoT devices with a powerful web platform to ensure rapid assistance when accidents occur.
-
-### Key Features
-
-| Feature | Description |
-|---------|-------------|
-| **Real-time Detection** | AIoT devices detect accidents instantly using advanced sensors |
-| **Automated Alerts** | Immediate notifications to emergency contacts and services |
-| **Device Management** | Register and manage multiple AIoT devices per user |
-| **Location Tracking** | Precise GPS-based location for quick emergency response |
-| **Insurance Storage** | Securely store health, vehicle, and term insurance details |
-| **Emergency Contacts** | Manage emergency contacts for each registered device |
-| **Admin Dashboard** | Comprehensive analytics and alert management |
-
----
+- **Authentication**: OTP-based phone authentication with JWT tokens
+- **User Management**: User profiles, preferences, and settings
+- **Device Management**: Register and manage AIoT devices
+- **Emergency Contacts**: Store and manage emergency contacts per device
+- **Alert System**: Real-time accident alerts from AIoT devices
+- **Insurance Storage**: Store health, vehicle, and term insurance details
 
 ## Tech Stack
 
-### Frontend
-| Technology | Purpose |
-|------------|---------|
-| **React 18** | UI Framework |
-| **TypeScript** | Type Safety |
-| **Vite** | Build Tool |
-| **Tailwind CSS** | Styling |
-| **shadcn/ui** | Component Library |
-| **React Query** | Data Fetching |
-| **React Router** | Navigation |
-| **Leaflet** | Maps & Location |
-| **Recharts** | Data Visualization |
-| **Socket.IO** | Real-time Updates |
-
-### Backend
-| Technology | Purpose |
-|------------|---------|
-| **NestJS** | API Framework |
-| **TypeORM** | Database ORM |
-| **PostgreSQL** | Database |
-| **Passport JWT** | Authentication |
-| **Swagger** | API Documentation |
-
----
+- **NestJS** - Progressive Node.js framework
+- **TypeORM** - Database ORM
+- **PostgreSQL** - Database
+- **Passport JWT** - Authentication
+- **Swagger** - API documentation
 
 ## Getting Started
 
 ### Prerequisites
 
-- **Node.js** 18+
-- **npm** or **yarn**
-- **PostgreSQL** (for backend)
+- Node.js 18+
+- PostgreSQL
+- npm or yarn
 
-### Frontend Setup
+### Installation
 
+1. Install dependencies:
 ```bash
-# Clone the repository
-git clone <repository-url>
-
-# Navigate to project directory
-cd apadbandhav
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-The app will be available at `http://localhost:5173`
-
-### Backend Setup
-
-```bash
-# Navigate to backend directory
 cd backend
-
-# Install dependencies
 npm install
+```
 
-# Copy environment file
+2. Create `.env` file:
+```bash
 cp .env.example .env
+```
 
-# Configure your database settings in .env
+3. Configure your database and JWT settings in `.env`
 
-# Start development server
+4. Start PostgreSQL and create the database:
+```sql
+CREATE DATABASE apadbandhav;
+```
+
+5. Run the application:
+```bash
+# Development
 npm run start:dev
+
+# Production
+npm run build
+npm run start:prod
 ```
 
-API documentation available at `http://localhost:3000/api/docs`
+## API Documentation
 
----
-
-## Project Structure
-
-```
-apadbandhav/
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── contexts/       # React context providers
-│   ├── hooks/          # Custom React hooks
-│   ├── pages/          # Application pages
-│   ├── services/       # API services
-│   └── lib/            # Utility functions
-├── backend/
-│   ├── src/
-│   │   ├── auth/       # Authentication module
-│   │   ├── users/      # User management
-│   │   ├── devices/    # Device management
-│   │   ├── alerts/     # Alert system
-│   │   └── common/     # Shared utilities
-│   └── ...
-└── ...
-```
-
----
+Once running, visit: `http://localhost:3000/api/docs`
 
 ## API Endpoints
 
 ### Authentication
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/send-otp` | Send OTP to phone |
-| POST | `/api/auth/verify-otp` | Verify OTP and login |
-| POST | `/api/auth/signup` | Register new user |
-| GET | `/api/auth/me` | Get current user |
+- `POST /api/auth/send-otp` - Send OTP to phone
+- `POST /api/auth/verify-otp` - Verify OTP and login
+- `POST /api/auth/signup` - Register new user
+- `GET /api/auth/me` - Get current user profile
+
+### Users
+- `GET /api/users` - Get all users
+- `GET /api/users/:id` - Get user by ID
+- `PATCH /api/users/:id` - Update user
+- `DELETE /api/users/:id` - Delete user
 
 ### Devices
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/devices` | Register device |
-| GET | `/api/devices` | List user devices |
-| PATCH | `/api/devices/:id` | Update device |
-| DELETE | `/api/devices/:id` | Remove device |
+- `POST /api/devices` - Register new device
+- `GET /api/devices` - Get all devices for user
+- `GET /api/devices/:id` - Get device details
+- `PATCH /api/devices/:id` - Update device
+- `PATCH /api/devices/:id/location` - Update device location
+- `DELETE /api/devices/:id` - Delete device
 
 ### Alerts
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/alerts` | Create alert (AIoT) |
-| GET | `/api/alerts` | List all alerts |
-| GET | `/api/alerts/stats` | Alert statistics |
-| PATCH | `/api/alerts/:id/status` | Update alert status |
+- `POST /api/alerts` - Create new alert (from AIoT)
+- `GET /api/alerts` - Get all alerts
+- `GET /api/alerts/stats` - Get alert statistics
+- `GET /api/alerts/:id` - Get alert by ID
+- `PATCH /api/alerts/:id/status` - Update alert status
 
----
+## Database Schema
 
-## AIoT Device Integration
+### Users
+- id, fullName, email, phone, profilePhoto
+- hospitalPreference, accidentAlerts, smsNotifications, locationTracking
 
-Send accident alerts from your AIoT device:
+### Devices
+- id, name, code (16-digit), type, status
+- latitude, longitude, address
+- healthInsurance, vehicleInsurance, termInsurance
+- userId (FK)
 
-```json
+### Emergency Contacts
+- id, name, relation, phone
+- deviceId (FK)
+
+### Alerts
+- id, type, status, severity
+- latitude, longitude, address, notes
+- deviceId (FK)
+- createdAt, resolvedAt
+
+## AIoT Integration
+
+The AIoT device should send alerts to:
+```
 POST /api/alerts
 {
   "deviceCode": "1234567890123456",
   "latitude": 28.6139,
   "longitude": 77.2090,
-  "address": "Location Address",
+  "address": "Connaught Place, New Delhi",
   "type": "accident",
   "severity": "high"
 }
 ```
 
----
-
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-
----
-
-## Contributing
-
-This is a private project. Please contact the maintainers for contribution guidelines.
-
----
-
 ## License
 
-**Private** - All Rights Reserved
-
----
-
-<p align="center">
-  <strong>Built with care by NighaTech</strong>
-</p>
+Private - All Rights Reserved
